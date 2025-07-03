@@ -1,0 +1,12 @@
+module Messager {
+
+    typedef unsigned long long TimeT;
+
+    @topic
+    struct Message {
+        @key long id;
+        string content;
+        string sender;
+        TimeT timestamp;
+    };
+};

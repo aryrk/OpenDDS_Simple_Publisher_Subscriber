@@ -1,0 +1,5 @@
+bin/*
+Messager*
+!Messager.idl
+repo.ior
+.vscode/
