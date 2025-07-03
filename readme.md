@@ -38,12 +38,12 @@ Open **three terminals** and run the following in each:
 
 2. **Terminal 2: Run the Publisher**
    ```sh
-   ./bin/publisher -DCPSConfigFile ../dds_tcp_conf.ini
+   ./bin/publisher -DCPSConfigFile ./dds_tcp_conf.ini
    ```
 
 3. **Terminal 3: Run the Subscriber**
    ```sh
-   ./bin/subscriber -DCPSConfigFile ../dds_tcp_conf.ini
+   ./bin/subscriber -DCPSConfigFile ./dds_tcp_conf.ini
    ```
 
 ## Notes
