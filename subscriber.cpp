@@ -6,10 +6,12 @@
 #include <ace/OS_NS_unistd.h>
 
 DDS::DomainId_t domain_id = 42;
-const char* EXCHANGE_EVT_TOPIC_NAME = "ExchangeEventTopic";
+const char *EXCHANGE_EVT_TOPIC_NAME = "ExchangeEventTopic";
 
-int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
-    try {
+int ACE_TMAIN(int argc, ACE_TCHAR *argv[])
+{
+    try
+    {
         // Create DomainParticipant
         DDS::DomainParticipantFactory_var dpf = TheParticipantFactoryWithArgs(argc, argv);
         DDS::DomainParticipant_var participant =
@@ -50,6 +52,9 @@ int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
         // Create DataReader with listener
         DDS::DataReaderQos dr_qos;
         subscriber->get_default_datareader_qos(dr_qos);
+
+        dr_qos.ownership.kind = DDS::EXCLUSIVE_OWNERSHIP_QOS;
+
         DDS::DataReaderListener_var listener(new MessageReaderListener);
 
         DDS::DataReader_var exchange_evt_reader =
@@ -62,11 +67,13 @@ int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
             ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: DataReader creation failed.\n")), 1);
 
         ACE_DEBUG((LM_INFO, ACE_TEXT("INFO: Subscriber running. Waiting for data...\n")));
-        while (true) {
+        while (true)
+        {
             ACE_OS::sleep(1);
         }
     }
-    catch (const CORBA::Exception& ex) {
+    catch (const CORBA::Exception &ex)
+    {
         ex._tao_print_exception("ERROR: Exception caught:");
         return 1;
     }
