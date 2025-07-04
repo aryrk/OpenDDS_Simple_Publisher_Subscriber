@@ -6,18 +6,21 @@
 #include <orbsvcs/Time_Utilities.h>
 
 DDS::DomainId_t domain_id = 42;
-const char* EXCHANGE_EVT_TOPIC_NAME = "ExchangeEventTopic";
+const char *EXCHANGE_EVT_TOPIC_NAME = "ExchangeEventTopic";
 
 // Helper to get current timestamp
-TimeBase::TimeT get_timestamp() {
+TimeBase::TimeT get_timestamp()
+{
     TimeBase::TimeT retval;
     ACE_hrtime_t t = ACE_OS::gethrtime();
     ORBSVCS_Time::hrtime_to_TimeT(retval, t);
     return retval;
 }
 
-int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
-    try {
+int ACE_TMAIN(int argc, ACE_TCHAR *argv[])
+{
+    try
+    {
         // Create DomainParticipant
         DDS::DomainParticipantFactory_var dpf = TheParticipantFactoryWithArgs(argc, argv);
         DDS::DomainParticipant_var participant =
@@ -57,6 +60,10 @@ int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
 
         DDS::DataWriterQos dw_qos;
         publisher->get_default_datawriter_qos(dw_qos);
+
+        dw_qos.deadline.period.sec = 2;
+        dw_qos.deadline.period.nanosec = 0;
+
         DDS::DataWriter_var exchange_evt_writer =
             publisher->create_datawriter(exchange_evt_topic.in(),
                                          dw_qos,
@@ -71,7 +78,8 @@ int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
             ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: Narrowing DataWriter failed.\n")), 1);
 
         // Publish messages
-        for (int i = 0; i < 10; ++i) {
+        for (int i = 0; i < 10; ++i)
+        {
             Messager::Message message;
             message.id = i + 1;
             message.content = "Hello, OpenDDS!";
@@ -83,7 +91,7 @@ int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
                 ACE_ERROR_RETURN((LM_ERROR, ACE_TEXT("ERROR: Failed to write message: %d\n"), ret), 1);
 
             ACE_DEBUG((LM_INFO, ACE_TEXT("INFO: Message %d written successfully.\n"), i + 1));
-            ACE_OS::sleep(1);
+            ACE_OS::sleep(3);
         }
 
         // Cleanup
@@ -91,7 +99,8 @@ int ACE_TMAIN(int argc, ACE_TCHAR* argv[]) {
         dpf->delete_participant(participant.in());
         TheServiceParticipant->shutdown();
     }
-    catch (const CORBA::Exception& ex) {
+    catch (const CORBA::Exception &ex)
+    {
         ex._tao_print_exception("ERROR: Exception caught:");
         return 1;
     }

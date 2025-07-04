@@ -11,25 +11,26 @@ public:
 
     void on_requested_deadline_missed(
         DDS::DataReader_ptr,
-        const DDS::RequestedDeadlineMissedStatus&) override {}
+        // const DDS::RequestedDeadlineMissedStatus &) override {}    <-- Old code
+        const DDS::RequestedDeadlineMissedStatus& status) override; //<-- New code
 
     void on_requested_incompatible_qos(
         DDS::DataReader_ptr,
-        const DDS::RequestedIncompatibleQosStatus&) override {}
+        const DDS::RequestedIncompatibleQosStatus &) override {}
 
     void on_sample_rejected(
         DDS::DataReader_ptr,
-        const DDS::SampleRejectedStatus&) override {}
+        const DDS::SampleRejectedStatus &) override {}
 
     void on_liveliness_changed(
         DDS::DataReader_ptr,
-        const DDS::LivelinessChangedStatus&) override {}
+        const DDS::LivelinessChangedStatus &) override {}
 
     void on_subscription_matched(
         DDS::DataReader_ptr,
-        const DDS::SubscriptionMatchedStatus&) override {}
+        const DDS::SubscriptionMatchedStatus &) override {}
 
     void on_sample_lost(
         DDS::DataReader_ptr,
-        const DDS::SampleLostStatus&) override {}
+        const DDS::SampleLostStatus &) override {}
 };
