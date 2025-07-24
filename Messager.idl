@@ -1,12 +1,18 @@
-module Messager {
-
-    typedef unsigned long long TimeT;
-
+module ObjectTrackData {
     @topic
     struct Message {
-        @key long id;
-        string content;
-        string sender;
-        TimeT timestamp;
+        unsigned short sourceId;
+        string sourceName;
+        unsigned short trackId;
+        string sensorTrackId;
+        double latitude;
+        double longitude;
+        double bearing;
+        double range;
+        double altitude;
+        double course;
+        double speed;
+        double verticalSpeed;
+        long long time;
     };
 };
