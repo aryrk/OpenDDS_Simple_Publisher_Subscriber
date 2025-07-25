@@ -14,9 +14,14 @@ int ACE_TMAIN(int argc, ACE_TCHAR *argv[])
     {
         // Create DomainParticipant
         DDS::DomainParticipantFactory_var dpf = TheParticipantFactoryWithArgs(argc, argv);
+
+        // Configure participant QoS for XTypes
+        DDS::DomainParticipantQos participant_qos;
+        dpf->get_default_participant_qos(participant_qos);
+
         DDS::DomainParticipant_var participant =
             dpf->create_participant(domain_id,
-                                    PARTICIPANT_QOS_DEFAULT,
+                                    participant_qos,
                                     DDS::DomainParticipantListener::_nil(),
                                     ::OpenDDS::DCPS::DEFAULT_STATUS_MASK);
 
