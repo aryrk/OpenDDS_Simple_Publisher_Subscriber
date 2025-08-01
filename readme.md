@@ -31,7 +31,7 @@ This project demonstrates a minimal Publisher/Subscriber (Pub/Sub) application u
 
 Open **three terminals** and run the following in each:
 
-1. **Terminal 1: Start the OpenDDS InfoRepo**
+1. **Terminal 1: Start the OpenDDS InfoRepo**a
    ```sh
    $DDS_ROOT/dds/InfoRepo/DCPSInfoRepo -ORBEndpoint iiop://localhost:12345 -d domain_ids
    ```

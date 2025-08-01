@@ -134,7 +134,7 @@ int ACE_TMAIN(int argc, ACE_TCHAR *argv[])
 
             // Set basic track info
             track_message.sourceId(source_id);
-            track_message.sourceName(source_name);
+            track_message.sourceName(random_source_name());
             track_message.trackId(track_id++);
             track_message.sensorTrackId(random_sensor_track_id());
             track_message.time(get_current_time_ms());
@@ -145,14 +145,14 @@ int ACE_TMAIN(int argc, ACE_TCHAR *argv[])
             static double current_course = 45.0; // degrees
             static double current_speed = 25.0;  // knots
 
-            track_message.latitude(base_lat + (sin(track_id * 0.1) * 0.01));
-            track_message.longitude(base_lon + (cos(track_id * 0.1) * 0.01));
+            // track_message.latitude(base_lat + (sin(track_id * 0.1) * 0.01));
+            // track_message.longitude(base_lon + (cos(track_id * 0.1) * 0.01));
             track_message.bearing(fmod(track_id * 5.0, 360.0));
             track_message.range(1000.0 + (track_id * 50.0));
-            track_message.altitude(1000.0 + (sin(track_id * 0.2) * 500.0));
-            track_message.course(current_course);
-            track_message.speed(current_speed + (sin(track_id * 0.3) * 5.0));
-            track_message.verticalSpeed(cos(track_id * 0.15) * 10.0);
+            // track_message.altitude(1000.0 + (sin(track_id * 0.2) * 500.0));
+            // track_message.course(current_course);
+            // track_message.speed(current_speed + (sin(track_id * 0.3) * 5.0));
+            // track_message.verticalSpeed(cos(track_id * 0.15) * 10.0);
 
             DDS::ReturnCode_t ret = writer->write(track_message, DDS::HANDLE_NIL);
             if (ret != DDS::RETCODE_OK)
